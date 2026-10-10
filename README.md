@@ -26,12 +26,3 @@ src/
 ├── middlewares/    : Middleware xác thực, phân quyền
 ├── config/         : Cấu hình hệ thống
 └── utils/          : Hàm hỗ trợ dùng chung
-## 5. Kiểm thử
-npm test → hiển thị số test PASS
-Kết quả mong đợi:
-- Tất cả test case PASS
-- Không có lỗi kết nối cơ sở dữ liệu
-## 6. Trạng thái hiện tại
- Khởi tạo project, smoke test chạy được (buổi 2)
-□ Module tiếp nhận yêu cầu (buổi 8–10)
-□ Module phân công kỹ thuật viên (buổi 10–12)
