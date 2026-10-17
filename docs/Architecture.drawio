@@ -1,0 +1,52 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Page-1" id="e9hZBANoLhuNo8lGtzn4">
+    <mxGraphModel dx="1414" dy="783" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="22fZA-9quqW2bkzyGNGS-1" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Presentation Layer&#xa;HTML / CSS / JavaScript&#xa;Giao diện người dùng" vertex="1">
+          <mxGeometry height="100" width="230" x="299" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="22fZA-9quqW2bkzyGNGS-2" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Business Logic Layer&#xa;Java Spring Boot&#xa;Controllers / Services&#xa;Survey Service / Report Service" vertex="1">
+          <mxGeometry height="110" width="230" x="299" y="220" as="geometry" />
+        </mxCell>
+        <mxCell id="22fZA-9quqW2bkzyGNGS-3" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=center;" value="Data Access Layer&#xa;Repositories&#xa;Truy vấn và thao tác dữ liệu" vertex="1">
+          <mxGeometry height="100" width="230" x="299" y="400" as="geometry" />
+        </mxCell>
+        <mxCell id="22fZA-9quqW2bkzyGNGS-4" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=center;" value="Database Layer&#xa;MySQL&#xa;CUSTOMER / TICKET / TECHNICIAN&#xa;SERVICE_CENTER / SURVEY_RESPONSE" vertex="1">
+          <mxGeometry height="110" width="230" x="299" y="570" as="geometry" />
+        </mxCell>
+        <mxCell id="22fZA-9quqW2bkzyGNGS-5" edge="1" parent="1" source="22fZA-9quqW2bkzyGNGS-1" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="22fZA-9quqW2bkzyGNGS-2" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="440" y="220" as="sourcePoint" />
+            <mxPoint x="490" y="170" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="22fZA-9quqW2bkzyGNGS-6" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="413.5" y="320" as="sourcePoint" />
+            <mxPoint x="413.5" y="400" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="22fZA-9quqW2bkzyGNGS-7" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="413" y="490" as="sourcePoint" />
+            <mxPoint x="413" y="570" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="22fZA-9quqW2bkzyGNGS-8" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="HTTP / JSON" vertex="1">
+          <mxGeometry height="30" width="60" x="430" y="170" as="geometry" />
+        </mxCell>
+        <mxCell id="22fZA-9quqW2bkzyGNGS-9" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="Method calls / Objects" vertex="1">
+          <mxGeometry height="30" width="140" x="414" y="340" as="geometry" />
+        </mxCell>
+        <mxCell id="22fZA-9quqW2bkzyGNGS-10" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="SQL" vertex="1">
+          <mxGeometry height="30" width="60" x="414" y="515" as="geometry" />
+        </mxCell>
+        <mxCell id="legend_arch" parent="1" style="text;html=1;whiteSpace=wrap;rounded=1;align=left;verticalAlign=top;spacing=8;strokeColor=#666666;fillColor=#D5E8D4;fontSize=12;" value="CHÚ THÍCH&#xa;• Hộp chữ nhật: lớp/thành phần hệ thống&#xa;• Mũi tên: hướng giao tiếp giữa các lớp&#xa;• HTTP/JSON: giao tiếp giao diện – backend&#xa;• Method calls: gọi hàm/đối tượng trong ứng dụng&#xa;• SQL: truy vấn cơ sở dữ liệu" vertex="1">
+          <mxGeometry height="170" width="260" x="570" y="230" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
