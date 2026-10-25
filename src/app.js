@@ -26,5 +26,6 @@ app.get("/health", async (req, res) => {
 });
 
 app.use("/api/survey-responses", surveyResponseRoutes);
+app.use("/api/tickets", require("./routes/ticketRoutes"));
 
 module.exports = app;

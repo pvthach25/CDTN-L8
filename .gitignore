@@ -25,3 +25,7 @@ models/
 *.pt
 *.pth
 *.onnx
+# Environment secrets
+.env
+.env.*
+!.env.example

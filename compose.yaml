@@ -1,35 +1,37 @@
 services:
   app:
     build: .
-    container_name: smart-crm-app
     ports:
       - "3000:3000"
-    env_file:
-      - .env
+    environment:
+      PORT: 3000
+      DATABASE_URL: postgresql://${POSTGRES_USER:-smartcrm}:${POSTGRES_PASSWORD:-change_me}@db:5432/${POSTGRES_DB:-smart_crm_l8}
     depends_on:
       db:
         condition: service_healthy
-    volumes:
-      - ./src:/app/src
     restart: unless-stopped
-
+  frontend:
+    build: ./frontend
+    ports:
+      - "5173:5173"
+    depends_on:
+      - app
+    restart: unless-stopped
   db:
     image: postgres:17-alpine
-    container_name: smart-crm-db
     environment:
-      POSTGRES_DB: ${POSTGRES_DB}
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-    ports:
-      - "5432:5432"
+      POSTGRES_DB: ${POSTGRES_DB:-smart_crm_l8}
+      POSTGRES_USER: ${POSTGRES_USER:-smartcrm}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-change_me}
     volumes:
       - postgres_data:/var/lib/postgresql/data
+      - ./database/migrations/001_create_tables.sql:/docker-entrypoint-initdb.d/01_create_tables.sql:ro
+      - ./database/seeds/001_seed_data.sql:/docker-entrypoint-initdb.d/02_seed_data.sql:ro
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
       interval: 5s
       timeout: 5s
       retries: 10
     restart: unless-stopped
-
 volumes:
   postgres_data:
