@@ -1,3 +1,4 @@
+
 # Environment variables
 .env
 .env.*
@@ -6,6 +7,8 @@
 # Node.js
 node_modules/
 dist/
+frontend/node_modules/
+frontend/dist/
 
 # Python
 venv/
@@ -25,7 +28,3 @@ models/
 *.pt
 *.pth
 *.onnx
-# Environment secrets
-.env
-.env.*
-!.env.example

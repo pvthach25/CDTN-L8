@@ -1,29 +1,42 @@
+
 import React from "react";
 
 export default function DataState({
   loading,
   error,
   empty,
+  emptyMessage = "Chưa có dữ liệu để hiển thị.",
   children,
-  onRetry,
+  onRetry
 }) {
   if (loading) {
-    return <div role="status" className="state">Đang tải dữ liệu...</div>;
+    return (
+      <div role="status" className="state">
+        Đang tải dữ liệu...
+      </div>
+    );
   }
 
   if (error) {
     return (
       <div role="alert" className="state error">
-        {error}
+        <p>{error}</p>
+
         {onRetry && (
-          <button onClick={onRetry}>Thử lại</button>
+          <button type="button" onClick={onRetry}>
+            Thử lại
+          </button>
         )}
       </div>
     );
   }
 
   if (empty) {
-    return <div className="state">Chưa có dữ liệu để hiển thị.</div>;
+    return (
+      <div role="status" className="state">
+        {emptyMessage}
+      </div>
+    );
   }
 
   return children;

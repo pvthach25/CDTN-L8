@@ -1,0 +1,101 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Page-1" id="D3QKw2Zm41sAqbMYB0JJ">
+    <mxGraphModel dx="2438" dy="1350" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="1654" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="zXCshsvgubuQwNXMm3j2-29" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="" vertex="1">
+          <mxGeometry height="705" width="690" x="70" y="430" as="geometry" />
+        </mxCell>
+        <mxCell id="zXCshsvgubuQwNXMm3j2-1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;fillColor=#0050ef;fontColor=#ffffff;strokeColor=#001DBC;" value="&lt;div&gt;&lt;b&gt;NGƯỜI DÙNG / ADMIN&lt;/b&gt;&lt;/div&gt;&lt;div&gt;Trình duyệt Web&lt;/div&gt;" vertex="1">
+          <mxGeometry height="80" width="240" x="465" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="zXCshsvgubuQwNXMm3j2-2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;fillColor=#0050ef;fontColor=#ffffff;strokeColor=#001DBC;" value="&lt;div&gt;&lt;b&gt;FRONTEND – REACT + VITE&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Giao diện: frontend/src/App.jsx&lt;/div&gt;&lt;div&gt;Components: frontend/src/components/&lt;/div&gt;&lt;div&gt;API Client: frontend/src/api/client.js&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Login | Danh sách | Chi tiết | Tiếp nhận&lt;/div&gt;" vertex="1">
+          <mxGeometry height="140" width="292" x="439.01" y="265" as="geometry" />
+        </mxCell>
+        <mxCell id="zXCshsvgubuQwNXMm3j2-3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;fillColor=#0050ef;fontColor=#ffffff;strokeColor=#001DBC;" value="&lt;div&gt;&lt;b&gt;BACKEND – NODE.JS + EXPRESS&lt;/b&gt;&lt;/div&gt;&lt;div&gt;src/app.js&lt;/div&gt;" vertex="1">
+          <mxGeometry height="80" width="240" x="465" y="470" as="geometry" />
+        </mxCell>
+        <mxCell id="zXCshsvgubuQwNXMm3j2-4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;fillColor=#0050ef;fontColor=#ffffff;strokeColor=#001DBC;" value="&lt;div&gt;&lt;b&gt;ROUTES – API ENDPOINTS&lt;/b&gt;&lt;/div&gt;&lt;div&gt;src/routes/&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;authRoutes.js&lt;/div&gt;&lt;div&gt;ticketRoutes.js&lt;/div&gt;&lt;div&gt;surveyResponseRoutes.js&lt;/div&gt;" vertex="1">
+          <mxGeometry height="130" width="278.75" x="445.63" y="610" as="geometry" />
+        </mxCell>
+        <mxCell id="zXCshsvgubuQwNXMm3j2-5" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;fillColor=#0050ef;fontColor=#ffffff;strokeColor=#001DBC;" value="&lt;div&gt;&lt;b&gt;SERVICES – BUSINESS LOGIC&lt;/b&gt;&lt;/div&gt;&lt;div&gt;src/services/&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;authService.js&lt;/div&gt;&lt;div&gt;ticketService.js&lt;/div&gt;&lt;div&gt;surveyResponseService.js&lt;/div&gt;" vertex="1">
+          <mxGeometry height="140" width="317.5" x="426" y="800" as="geometry" />
+        </mxCell>
+        <mxCell id="zXCshsvgubuQwNXMm3j2-6" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;fillColor=#0050ef;fontColor=#ffffff;strokeColor=#001DBC;" value="&lt;div&gt;&lt;b&gt;REPOSITORIES – DATA ACCESS&lt;/b&gt;&lt;/div&gt;&lt;div&gt;src/repositories/&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;authRepository.js&lt;/div&gt;&lt;div&gt;ticketRepository.js&lt;/div&gt;&lt;div&gt;surveyResponseRepository.js&lt;/div&gt;" vertex="1">
+          <mxGeometry height="120" width="247.5" x="461" y="1000" as="geometry" />
+        </mxCell>
+        <mxCell id="zXCshsvgubuQwNXMm3j2-7" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;fillColor=#0050ef;fontColor=#ffffff;strokeColor=#001DBC;" value="&lt;div&gt;&lt;b&gt;AUTH MIDDLEWARE&lt;/b&gt;&lt;/div&gt;&lt;div&gt;src/middlewares/requireAuth.js&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Kiểm tra Bearer Token&lt;/div&gt;" vertex="1">
+          <mxGeometry height="80" width="240" x="83.75" y="635" as="geometry" />
+        </mxCell>
+        <mxCell id="zXCshsvgubuQwNXMm3j2-8" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;fillColor=#0050ef;fontColor=#ffffff;strokeColor=#001DBC;" value="&lt;div&gt;&lt;b&gt;DATABASE – POSTGRESQL 17&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;7 bảng:&lt;/div&gt;&lt;div&gt;app_user, auth_session, customer,&lt;/div&gt;&lt;div&gt;service_center, technician,&lt;/div&gt;&lt;div&gt;ticket, survey_response&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Migration: database/migrations/&lt;/div&gt;&lt;div&gt;Seed: database/seeds/&lt;/div&gt;" vertex="1">
+          <mxGeometry height="140" width="247.5" x="461.25" y="1180" as="geometry" />
+        </mxCell>
+        <mxCell id="zXCshsvgubuQwNXMm3j2-9" edge="1" parent="1" source="zXCshsvgubuQwNXMm3j2-1" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="zXCshsvgubuQwNXMm3j2-2" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="360" y="370" as="sourcePoint" />
+            <mxPoint x="410" y="320" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="zXCshsvgubuQwNXMm3j2-10" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="Thao tác giao diện" vertex="1">
+          <mxGeometry height="30" width="110" x="590" y="220" as="geometry" />
+        </mxCell>
+        <mxCell id="zXCshsvgubuQwNXMm3j2-12" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;p&gt;&lt;/p&gt;&lt;p&gt;HTTP REST API&lt;/p&gt;" vertex="1">
+          <mxGeometry height="30" width="110" x="850" y="495" as="geometry" />
+        </mxCell>
+        <mxCell id="zXCshsvgubuQwNXMm3j2-15" edge="1" parent="1" source="zXCshsvgubuQwNXMm3j2-2" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="zXCshsvgubuQwNXMm3j2-4" value="">
+          <mxGeometry height="50" relative="1" width="50" x="-0.0022" as="geometry">
+            <Array as="points">
+              <mxPoint x="830" y="335" />
+              <mxPoint x="830" y="675" />
+            </Array>
+            <mxPoint x="780" y="480" as="sourcePoint" />
+            <mxPoint x="830" y="430" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="zXCshsvgubuQwNXMm3j2-16" edge="1" parent="1" source="zXCshsvgubuQwNXMm3j2-4" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="zXCshsvgubuQwNXMm3j2-5" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="760" y="800" as="sourcePoint" />
+            <mxPoint x="810" y="750" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="zXCshsvgubuQwNXMm3j2-17" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;p&gt;&lt;/p&gt;&lt;p&gt;Gọi xử lý nghiệp vụ&lt;/p&gt;" vertex="1">
+          <mxGeometry height="30" width="110" x="590" y="755" as="geometry" />
+        </mxCell>
+        <mxCell id="zXCshsvgubuQwNXMm3j2-19" edge="1" parent="1" source="zXCshsvgubuQwNXMm3j2-5" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="zXCshsvgubuQwNXMm3j2-6" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="400" y="1030" as="sourcePoint" />
+            <mxPoint x="450" y="980" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="zXCshsvgubuQwNXMm3j2-20" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="Truy xuất dữ liệu" vertex="1">
+          <mxGeometry height="30" width="110" x="595" y="960" as="geometry" />
+        </mxCell>
+        <mxCell id="zXCshsvgubuQwNXMm3j2-21" edge="1" parent="1" source="zXCshsvgubuQwNXMm3j2-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;innerLoopWaypoints=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" target="zXCshsvgubuQwNXMm3j2-20">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="zXCshsvgubuQwNXMm3j2-22" edge="1" parent="1" source="zXCshsvgubuQwNXMm3j2-6" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="zXCshsvgubuQwNXMm3j2-8" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="400" y="1050" as="sourcePoint" />
+            <mxPoint x="450" y="1000" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="zXCshsvgubuQwNXMm3j2-23" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="SQL" vertex="1">
+          <mxGeometry height="30" width="60" x="585" y="1135" as="geometry" />
+        </mxCell>
+        <mxCell id="zXCshsvgubuQwNXMm3j2-26" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="Kiểm tra token" vertex="1">
+          <mxGeometry height="30" width="90" x="340" y="635" as="geometry" />
+        </mxCell>
+        <mxCell id="zXCshsvgubuQwNXMm3j2-27" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;fillColor=#76608a;fontColor=#ffffff;strokeColor=#432D57;" value="&lt;div&gt;&lt;b&gt;TRIỂN KHAI &amp;amp; KIỂM THỬ&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Docker Compose: compose.yaml&lt;/div&gt;&lt;div&gt;Backend Dockerfile: dockerfile&lt;/div&gt;&lt;div&gt;Frontend Dockerfile: frontend/Dockerfile&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Unit Tests: tests/&lt;/div&gt;&lt;div&gt;Tạo Admin: scripts/create-admin.js&lt;/div&gt;&lt;div&gt;Cấu hình: .env.example&lt;/div&gt;" vertex="1">
+          <mxGeometry height="185" width="240" x="860" y="1020" as="geometry" />
+        </mxCell>
+        <mxCell id="zXCshsvgubuQwNXMm3j2-28" edge="1" parent="1" source="zXCshsvgubuQwNXMm3j2-7" style="endArrow=none;dashed=1;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="zXCshsvgubuQwNXMm3j2-4" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="380" y="760" as="sourcePoint" />
+            <mxPoint x="430" y="710" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

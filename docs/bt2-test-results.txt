@@ -1,0 +1,122 @@
+﻿
+> smart-crm-l8@1.0.0 test
+> node --test tests/*.test.js
+
+TAP version 13
+# Subtest: CSAT lower bound 1 and NPS lower bound 0 are valid
+ok 1 - CSAT lower bound 1 and NPS lower bound 0 are valid
+  ---
+  duration_ms: 1.876155
+  type: 'test'
+  ...
+# Subtest: CSAT upper bound 5 and NPS upper bound 10 are valid
+ok 2 - CSAT upper bound 5 and NPS upper bound 10 are valid
+  ---
+  duration_ms: 0.2952
+  type: 'test'
+  ...
+# Subtest: Reject CSAT 6
+ok 3 - Reject CSAT 6
+  ---
+  duration_ms: 1.57859
+  type: 'test'
+  ...
+# Subtest: Reject NPS -1
+ok 4 - Reject NPS -1
+  ---
+  duration_ms: 0.244702
+  type: 'test'
+  ...
+# Subtest: Reject non-closed ticket
+ok 5 - Reject non-closed ticket
+  ---
+  duration_ms: 0.528331
+  type: 'test'
+  ...
+# Subtest: Reject unknown ticket
+ok 6 - Reject unknown ticket
+  ---
+  duration_ms: 0.312413
+  type: 'test'
+  ...
+# Subtest: Reject missing survey
+ok 7 - Reject missing survey
+  ---
+  duration_ms: 0.261775
+  type: 'test'
+  ...
+# Subtest: Reject non-string comment
+ok 8 - Reject non-string comment
+  ---
+  duration_ms: 0.257918
+  type: 'test'
+  ...
+# Subtest: Create valid OPEN ticket
+ok 9 - Create valid OPEN ticket
+  ---
+  duration_ms: 1.488236
+  type: 'test'
+  ...
+# Subtest: Reject invalid customer ID
+ok 10 - Reject invalid customer ID
+  ---
+  duration_ms: 1.015753
+  type: 'test'
+  ...
+# Subtest: Reject invalid ticket status
+ok 11 - Reject invalid ticket status
+  ---
+  duration_ms: 1.010091
+  type: 'test'
+  ...
+# Subtest: Reject CLOSED ticket without closed_at
+ok 12 - Reject CLOSED ticket without closed_at
+  ---
+  duration_ms: 0.281554
+  type: 'test'
+  ...
+# Subtest: Reject OPEN ticket with closed_at
+ok 13 - Reject OPEN ticket with closed_at
+  ---
+  duration_ms: 0.767322
+  type: 'test'
+  ...
+# Subtest: Get existing ticket
+ok 14 - Get existing ticket
+  ---
+  duration_ms: 0.44552
+  type: 'test'
+  ...
+# Subtest: Reject unknown ticket
+ok 15 - Reject unknown ticket
+  ---
+  duration_ms: 0.252919
+  type: 'test'
+  ...
+# Subtest: Update ticket status
+ok 16 - Update ticket status
+  ---
+  duration_ms: 0.386967
+  type: 'test'
+  ...
+# Subtest: Delete ticket without survey
+ok 17 - Delete ticket without survey
+  ---
+  duration_ms: 0.521988
+  type: 'test'
+  ...
+# Subtest: Reject deleting ticket with survey
+ok 18 - Reject deleting ticket with survey
+  ---
+  duration_ms: 0.478345
+  type: 'test'
+  ...
+1..18
+# tests 18
+# suites 0
+# pass 18
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 69.669966
