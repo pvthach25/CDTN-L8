@@ -44,9 +44,38 @@ function validateTicket(data) {
     );
   }
 
-  if (closedAt && Number.isNaN(Date.parse(closedAt))) {
+ if (closedAt) {
+  const isoPattern =
+    /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,3})?(?:Z|[+-]\d{2}:\d{2})$/;
+
+  if (
+    typeof closedAt !== "string" ||
+    !isoPattern.test(closedAt) ||
+    Number.isNaN(Date.parse(closedAt))
+  ) {
     throw businessError("INVALID_DATE", "Ngay dong khong hop le");
   }
+
+  const [year, month, day] = closedAt
+    .slice(0, 10)
+    .split("-")
+    .map(Number);
+
+  const validCalendarDate = new Date(
+    Date.UTC(year, month - 1, day)
+  );
+
+  if (
+    validCalendarDate.getUTCFullYear() !== year ||
+    validCalendarDate.getUTCMonth() !== month - 1 ||
+    validCalendarDate.getUTCDate() !== day
+  ) {
+    throw businessError(
+      "INVALID_DATE",
+      "Ngay dong khong ton tai trong lich"
+    );
+  }
+}
 
   return {
     customer_id: customerId,

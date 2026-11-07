@@ -191,3 +191,23 @@ test("BUG-01: Reject reopening surveyed ticket", async () => {
     (error) => error.code === "TICKET_HAS_SURVEY"
   );
 });
+
+test("BUG-02: Reject invalid calendar date", async () => {
+  mock({
+    create: async (data) => ({
+      ticket_id: 99,
+      ...data
+    })
+  });
+
+  await assert.rejects(
+    () => service.create({
+      customer_id: 1,
+      technician_id: 1,
+      center_id: 1,
+      status: "CLOSED",
+      closed_at: "2026-02-30T10:00:00Z"
+    }),
+    { code: "INVALID_DATE" }
+  );
+});                                     
