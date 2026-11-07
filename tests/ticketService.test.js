@@ -138,6 +138,7 @@ test("Reject unknown ticket", async () => {
 test("Update ticket status", async () => {
   mock({
     findById: async () => existingTicket,
+    hasSurvey: async () => false,
     update: async (id, data) => ({ ticket_id: id, ...data })
   });
 
@@ -169,5 +170,24 @@ test("Reject deleting ticket with survey", async () => {
   await assert.rejects(
     service.remove(1),
     { code: "TICKET_HAS_SURVEY" }
+  );
+});
+
+test("BUG-01: Reject reopening surveyed ticket", async () => {
+  mock({
+    findById: async () => ({
+      ticket_id: 1,
+      customer_id: 1,
+      technician_id: 1,
+      center_id: 1,
+      status: "CLOSED",
+      closed_at: "2026-11-07T10:00:00.000Z"
+    }),
+    hasSurvey: async () => true
+  });
+
+  await assert.rejects(
+    () => service.update(1, { status: "OPEN" }),
+    (error) => error.code === "TICKET_HAS_SURVEY"
   );
 });

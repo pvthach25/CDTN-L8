@@ -87,6 +87,18 @@ async function update(id, data) {
     throw businessError("NOT_FOUND", "Khong tim thay ticket");
   }
 
+// Khong cho mo lai ticket da co khao sat
+if (
+  data.status != null &&
+  data.status !== "CLOSED" &&
+  await repo.hasSurvey(ticketId)
+) {
+  throw businessError(
+    "TICKET_HAS_SURVEY",
+    "Khong the thay doi trang thai ticket da co khao sat"
+  );
+}
+
   const mergedData = {
     customer_id: data.customer_id ?? existing.customer_id,
     technician_id: data.technician_id ?? existing.technician_id,
