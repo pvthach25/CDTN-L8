@@ -210,4 +210,24 @@ test("BUG-02: Reject invalid calendar date", async () => {
     }),
     { code: "INVALID_DATE" }
   );
-});                                     
+}); 
+
+test("BUG-03: Reject invalid time zone offset", async () => {
+  mock({
+    create: async (data) => ({
+      ticket_id: 100,
+      ...data
+    })
+  });
+
+  await assert.rejects(
+    () => service.create({
+      customer_id: 1,
+      technician_id: 1,
+      center_id: 1,
+      status: "CLOSED",
+      closed_at: "2026-11-07T10:00:00+15:00"
+    }),
+    { code: "INVALID_DATE" }
+  );
+});

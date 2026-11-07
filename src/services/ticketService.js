@@ -46,7 +46,38 @@ function validateTicket(data) {
 
  if (closedAt) {
   const isoPattern =
-    /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,3})?(?:Z|[+-]\d{2}:\d{2})$/;
+  /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,3})?(?:Z|[+-](?:0\d|1[0-4]):[0-5]\d)$/;
+
+  if (
+  typeof closedAt !== "string" ||
+  !isoPattern.test(closedAt) ||
+  Number.isNaN(Date.parse(closedAt))
+) {
+  throw businessError("INVALID_DATE", "Ngay dong khong hop le");
+}
+
+// Kiem tra gio, phut, giay va gioi han mui gio
+const hour = Number(closedAt.slice(11, 13));
+const minute = Number(closedAt.slice(14, 16));
+const second = Number(closedAt.slice(17, 19));
+
+if (hour > 23 || minute > 59 || second > 59) {
+  throw businessError("INVALID_DATE", "Gio dong khong hop le");
+}
+
+const offset = closedAt.match(/([+-])(\d{2}):(\d{2})$/);
+
+if (offset) {
+  const offsetHour = Number(offset[2]);
+  const offsetMinute = Number(offset[3]);
+
+  if (
+    offsetHour > 14 ||
+    (offsetHour === 14 && offsetMinute !== 0)
+  ) {
+    throw businessError("INVALID_DATE", "Mui gio khong hop le");
+  }
+}
 
   if (
     typeof closedAt !== "string" ||
@@ -169,3 +200,4 @@ module.exports = {
   update,
   remove
 };
+
