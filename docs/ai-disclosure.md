@@ -91,3 +91,17 @@ Tôi chịu trách nhiệm đối với nội dung báo cáo, mã nguồn, kết
 
 **Sinh viên thực hiện:** Phạm Vũ Thạch  
 **MSSV:** 2374802010452
+
+---
+
+# BẢNG KHAI BÁO SỬ DỤNG AI – BÀI TẬP 3 (GIAI ĐOẠN 3)
+
+| Công cụ | Dùng vào việc gì | Tệp / hàm được hỗ trợ | Sinh viên kiểm chứng như thế nào |
+|---|---|---|---|
+| ChatGPT (OpenAI) | Rà soát quy tắc nghiệp vụ và gợi ý test hồi quy cho ba bug | `tests/ticketService.test.js`, `src/services/ticketService.js`, `docs/bug-log.md` | Chạy lại test BUG-01/02/03; đối chiếu ảnh trước/sau và ba commit sửa riêng. |
+| ChatGPT (OpenAI) | Đề xuất kiểm tra quyền sở hữu khảo sát (OWASP A01) | `src/routes/surveyResponseRoutes.js`, `src/services/surveyResponseService.js`, `src/repositories/surveyResponseRepository.js`, `tests/surveyResponseService.test.js` | Unit tests 25/25 PASS trong môi trường chuẩn bị; **cần chạy test API hai tài khoản thật** trên Docker trước khi nộp. |
+| ChatGPT (OpenAI) | Hỗ trợ thiết kế khởi tạo tự động và healthchecks cho Docker | `src/bootstrap.js`, `src/server.js`, `compose.yaml`, `database/migrations/003_add_survey_owner.sql` | **Chưa kiểm chứng máy trắng trong môi trường tạo tài liệu**; sinh viên phải clone tag thử, chạy `docker compose ps` và chụp ảnh. |
+| ChatGPT (OpenAI) | Soạn Test Plan, Test Report, Bug Log và hướng dẫn triển khai tiếng Anh | `docs/test-plan.md`, `docs/test-report.md`, `docs/bug-log.md`, `docs/deployment-guide.md` | Đối chiếu đề BT3; kiểm tra kết quả thực tế, lệnh và đường dẫn trong repo. Không đánh dấu PASS cho bước chưa chạy. |
+| ChatGPT (OpenAI) | Soạn checklist bảo mật và tài liệu API | `docs/checklist-bao-mat.md`, `docs/api-docs.md` | Đối chiếu endpoint trong `src/app.js` và `src/routes/`; chạy thử HTTP thật để thay ví dụ minh họa bằng response thu được. |
+
+**Trách nhiệm:** Sinh viên phải tự chạy và giải thích được toàn bộ test case, bug và bước triển khai. Kết quả chưa được thực hiện phải giữ trạng thái CHƯA LÀM / NOT RUN / VERIFY. Không sử dụng ảnh giả hoặc ghi PASS khống.

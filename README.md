@@ -1,238 +1,78 @@
-# Smart CRM – Khảo sát mức độ hài lòng khách hàng CSAT/NPS (L8)
+Smart CRM L8 – Khảo sát mức độ hài lòng CSAT/NPS
+Học phần: Chuyên đề Tốt nghiệp 1 (CDTN1) – Track Software Engineering (SE)
+Sinh viên: Phạm Vũ Thạch – 2374802010452
+GitHub: https://github.com/pvthach25/CDTN-L8
+Phiên bản dự kiến nộp BT3: v1.0 (chỉ tạo tag sau khi kiểm tra triển khai từ bản clone sạch)
+1. Giới thiệu dự án
+Smart CRM L8 là hệ thống hỗ trợ quản lý phiếu dịch vụ và thu thập phản hồi của khách hàng bằng hai chỉ số CSAT (mức độ hài lòng) và NPS (khả năng giới thiệu dịch vụ). Prototype gồm:
+- Backend: Node.js 22, Express, cung cấp API quản lý phiếu (ticket), khảo sát (survey_response) và đăng nhập.
+- Frontend: React/Vite, hiển thị danh sách, chi tiết và giao diện tiếp nhận khảo sát.
+- Cơ sở dữ liệu: PostgreSQL 17.
+- Triển khai: Docker Compose để khởi động các dịch vụ app, db và frontend.
+Chức năng và quy tắc nghiệp vụ
+- Quản lý phiếu dịch vụ và kết quả khảo sát thông qua các API CRUD.
+- Ghi nhận điểm CSAT từ 1 đến 5, điểm NPS từ 0 đến 10 và nhận xét của khách hàng.
+- Chỉ cho phép khảo sát phiếu có trạng thái CLOSED; mỗi phiếu chỉ được khảo sát một lần.
+- Đăng nhập bằng mật khẩu; phiên đăng nhập sử dụng token được lưu dưới dạng băm.
+- Giới hạn quyền truy cập kết quả khảo sát theo tài khoản sở hữu bản ghi.
+Giới hạn hiện tại: Các API quản lý phiếu được dùng chung cho những tài khoản đã đăng nhập, chưa phân quyền theo chủ sở hữu phiếu. Đây là prototype phục vụ học tập, chưa phù hợp để triển khai như một hệ thống đa khách hàng trong môi trường sản xuất.
+2. Yêu cầu môi trường
+- Đã cài Docker Desktop và có Docker Compose v2.
+- Có Git để tải mã nguồn.
+- Cổng 3000 (API) và 5173 (giao diện) chưa bị chương trình khác sử dụng.
+Không cần cài riêng Node.js hoặc PostgreSQL trên Windows khi chạy bằng Docker.
+3. Hướng dẫn chạy từ bản clone sạch
+Tải mã nguồn từ GitHub về một thư mục trống, mở Terminal tại thư mục gốc dự án. Sau khi có tag v1.0, có thể dùng đúng tag đó để kiểm tra bản nộp.
 
-**Sinh viên:** Phạm Vũ Thạch – 2374802010452  
-**Học phần:** Chuyên đề Tốt nghiệp 1 – HK1 2026–2027  
-**Track:** Software Engineering (SE)  
-**Luồng nghiệp vụ:** L8 – Khảo sát hài lòng CSAT/NPS  
-**Repository:** https://github.com/pvthach25/CDTN-L8
-
-## 1. Mục tiêu và phạm vi
-
-Xây dựng module khảo sát mức độ hài lòng khách hàng thuộc hệ thống Smart CRM của Mekong Mobile, ghi nhận đánh giá sau khi phiếu bảo hành đã hoàn tất.
-
-Các chức năng đã hiện thực:
-
-- CRUD hai thực thể chính: `ticket` (phiếu bảo hành) và `survey_response` (phản hồi khảo sát).
-- Ghi nhận điểm **CSAT từ 1 đến 5**, **NPS từ 0 đến 10** và nhận xét tùy chọn.
-- Giao diện React gồm đăng nhập, danh sách khảo sát, chi tiết khảo sát và tiếp nhận khảo sát; kết nối API thực tế.
-- Xác thực API bằng Bearer Token, có chức năng đăng nhập và đăng xuất.
-- Xử lý các trạng thái giao diện **Loading**, **Empty** và **Error/Retry** qua component `DataState`.
-
-**Quy tắc nghiệp vụ chính:**
-
-1. Chỉ được khảo sát phiếu có trạng thái `CLOSED`.
-2. Mỗi phiếu chỉ được khảo sát một lần (ràng buộc `UNIQUE ticket_id` trong PostgreSQL; yêu cầu khảo sát trùng trả về HTTP `409`).
-3. Phiếu `CLOSED` phải có thời gian đóng `closed_at`; phiếu chưa đóng không được có thời gian đóng.
-4. Không được xóa phiếu bảo hành đã có phản hồi khảo sát.
-5. Điểm CSAT/NPS và dữ liệu đầu vào phải được kiểm tra trước khi lưu.
-
-## 2. Yêu cầu môi trường
-
-- **Docker Desktop** có hỗ trợ Docker Compose.
-- **Git** để clone repository.
-- Trình duyệt web để truy cập giao diện.
-- PowerShell trên Windows để thực hiện các lệnh bên dưới.
-
-Node.js, Express, React/Vite và PostgreSQL chạy trong các container Docker; **không bắt buộc cài Node.js hoặc PostgreSQL trực tiếp trên Windows**.
-
-Các dịch vụ trong `compose.yaml`:
-
-| Dịch vụ | Công nghệ | Địa chỉ trên máy |
-| --- | --- | --- |
-| `frontend` | React + Vite | http://localhost:5173 |
-| `app` | Node.js + Express | http://localhost:3000 |
-| `db` | PostgreSQL 17 | Nội bộ mạng Docker |
-
-## 3. Cài đặt và chạy hệ thống
-
-### 3.1. Lấy mã nguồn và cấu hình môi trường
-
-```powershell
-git clone https://github.com/pvthach25/CDTN-L8.git
-cd CDTN-L8
+Trên Windows (PowerShell), chạy đúng hai lệnh thiết lập:
 Copy-Item .env.example .env
-```
+docker compose up -d --build
+Trên Linux/macOS:
+cp .env.example .env
+docker compose up -d --build
+File .env.example chỉ chứa giá trị minh họa phục vụ chạy thử. Phải thay mật khẩu cơ sở dữ liệu và mật khẩu Admin trước khi triển khai ra môi trường có người khác truy cập. Không commit file .env chứa thông tin bí mật lên GitHub.
 
-Kiểm tra các biến trong `.env` theo `.env.example`, đặc biệt là thông tin PostgreSQL. **Không commit `.env`, mật khẩu hoặc token đăng nhập lên GitHub.**
-
-### 3.2. Khởi động Docker
-
-```powershell
-docker compose up --build -d
+Ở lần khởi tạo với volume cơ sở dữ liệu mới, hệ thống tạo các bảng và nạp dữ liệu mẫu (khách hàng, trung tâm dịch vụ, kỹ thuật viên, phiếu CLOSED và khảo sát). Tài khoản Admin minh họa được tự tạo nếu chưa tồn tại; mật khẩu của tài khoản đã tồn tại không bị ghi đè.
+4. Kiểm tra hệ thống sau khi chạy
+Mở PowerShell trong thư mục dự án và thực hiện:
 docker compose ps
-```
-
-Kiểm tra Backend:
-
-```powershell
 Invoke-RestMethod http://localhost:3000/health
-```
-
-Khi hoạt động bình thường, API trả về trạng thái `ok` và kết nối cơ sở dữ liệu `connected`.
-
-Truy cập giao diện: **http://localhost:5173**.
-
-### 3.3. Tạo tài khoản quản trị
-
-Hệ thống không công bố mật khẩu quản trị mặc định. Sau khi các container đã khởi động, tạo tài khoản bằng PowerShell:
-
-```powershell
-$env:ADMIN_USERNAME = "admin"
-$securePassword = Read-Host "Nhap mat khau admin (toi thieu 12 ky tu)" -AsSecureString
-$ptr = [Runtime.InteropServices.Marshal]::SecureStringToBSTR($securePassword)
-
-try {
-    $env:ADMIN_PASSWORD = [Runtime.InteropServices.Marshal]::PtrToStringBSTR($ptr)
-
-    docker compose run --rm `
-        -e ADMIN_USERNAME `
-        -e ADMIN_PASSWORD `
-        app node scripts/create-admin.js
-}
-finally {
-    [Runtime.InteropServices.Marshal]::ZeroFreeBSTR($ptr)
-    Remove-Item Env:\ADMIN_PASSWORD -ErrorAction SilentlyContinue
-    Remove-Item Env:\ADMIN_USERNAME -ErrorAction SilentlyContinue
-}
-```
-
-Mật khẩu phải có tối thiểu **12 ký tự**; hệ thống dùng `scrypt` để băm mật khẩu trước khi lưu. Sau khi tạo thành công, đăng nhập trên giao diện bằng tài khoản vừa tạo. Không chia sẻ mật khẩu hoặc Bearer Token trong ảnh minh chứng.
-
-### 3.4. Migration và seed dữ liệu
-
-Khi PostgreSQL khởi tạo trên **volume trống**, Docker thực thi các script theo thứ tự được khai báo trong `compose.yaml`:
-
-1. `database/migrations/001_create_tables.sql` – Các bảng nghiệp vụ.
-2. `database/migrations/002_create_auth_tables.sql` – Tài khoản và phiên đăng nhập.
-3. `database/seeds/001_seed_data.sql` – Dữ liệu mẫu ban đầu.
-
-Các script khởi tạo **chỉ chạy khi volume dữ liệu PostgreSQL trống**. Khởi động lại container không tự động chạy lại migration/seed. **Không chạy `docker compose down -v` nếu cần giữ dữ liệu hiện có.**
-
-### 3.5. Chạy Unit Test
-
-```powershell
 docker compose exec app npm test
-```
+Kết quả cần đạt:
+- Ba dịch vụ db, app, frontend đều hoạt động và đạt trạng thái healthy.
+- API /health trả về status: ok và database: connected.
+- Bộ Unit Test của phiên bản BT3 dự kiến đạt 25 PASS, 0 FAIL; cần xác nhận bằng kết quả chạy thực tế trên máy.
+Địa chỉ truy cập:
+- Giao diện: http://localhost:5173
+- API kiểm tra sức khỏe: http://localhost:3000/health
+Đăng nhập bằng tài khoản Admin được cấu hình trong file .env của máy bạn. Không dùng tài khoản hoặc mật khẩu minh họa cho hệ thống công khai.
+5. Môi trường kiểm thử BT3 độc lập
+Để kiểm thử mà không xóa dữ liệu của môi trường chính, sử dụng Docker Compose với project riêng:
+docker compose -p smartcrm_bt3_clean -f compose.yaml -f compose.clean-test.yaml up -d --build
+Theo cấu hình compose.clean-test.yaml trong bộ cập nhật BT3, môi trường kiểm thử sử dụng:
+- API: http://localhost:3002
+- Frontend: http://localhost:5175
+Môi trường này dùng tên project và volume riêng, không ghi đè cơ sở dữ liệu của project chính. Để kiểm thử quyền truy cập theo chủ sở hữu (OWASP A01), chạy script scripts/test-a01.ps1 theo hướng dẫn trong docs/deployment-guide.md. Sau khi kiểm thử thật và đạt kết quả mong đợi, lưu ảnh Terminal vào docs/screenshots/TC11-owner-access.png.
 
-Kết quả kiểm thử đã ghi nhận: **18/18 PASS, 0 FAIL**. Minh chứng văn bản: `docs/bt2-test-results.txt`.
-
-### 3.6. Dừng hệ thống
-
-```powershell
+Dừng môi trường chính mà không xóa dữ liệu:
 docker compose down
-```
+Chỉ xóa volume của môi trường kiểm thử tạm khi chắc chắn không cần giữ dữ liệu:
+docker compose -p smartcrm_bt3_clean -f compose.yaml -f compose.clean-test.yaml down -v
+6. Tài liệu và minh chứng BT3
+Tài liệu	Nội dung
+[Test Plan](docs/test-plan.md)	Phạm vi, loại kiểm thử, tiêu chí và dữ liệu kiểm thử
+[Test Report](docs/test-report.md)	Kết quả các tình huống kiểm thử và ảnh minh chứng
+[Bug Log](docs/bug-log.md)	Ba lỗi đã phát hiện, sửa và liên kết commit riêng
+[Deployment Guide – English](docs/deployment-guide.md)	Hướng dẫn triển khai bằng tiếng Anh theo yêu cầu BT3
+[Security Checklist](docs/checklist-bao-mat.md)	Danh sách tự kiểm tra các yêu cầu bảo mật
+[API Documentation – English](docs/api-docs.md)	Tài liệu các endpoint API bằng tiếng Anh cho Track SE
+[AI Disclosure](docs/ai-disclosure.md)	Khai báo việc sử dụng công cụ AI
+[Ảnh minh chứng](docs/screenshots/)	Ảnh chụp các lần kiểm thử thực tế
 
-Lệnh trên không xóa Docker volume mặc định.
 
-## 4. Kiến trúc thực tế và cấu trúc thư mục
-
-Kiến trúc triển khai: **React/Vite → Express Routes → Services → Repositories → PostgreSQL**. Middleware xác thực kiểm tra Bearer Token trên các API được bảo vệ. Hệ thống chạy ba dịch vụ `frontend`, `app`, `db` qua Docker Compose.
-
-Sơ đồ kiến trúc đã hiện thực: `docs/architecture-thuc-te.drawio`.
-
-```text
-CDTN-L8/
-├── database/
-│   ├── migrations/
-│   │   ├── 001_create_tables.sql
-│   │   └── 002_create_auth_tables.sql
-│   └── seeds/
-│       └── 001_seed_data.sql
-├── docs/                       # SRS, thiết kế, thay đổi thiết kế, AI, minh chứng
-│   ├── srs.md
-│   ├── thay-doi-thiet-ke.md
-│   ├── ai-disclosure.md
-│   └── architecture-thuc-te.drawio
-├── frontend/
-│   ├── src/
-│   │   ├── api/client.js       # Gọi Backend API
-│   │   ├── components/         # Login, DataState
-│   │   ├── App.jsx             # Danh sách, chi tiết, tiếp nhận
-│   │   └── main.jsx
-│   ├── Dockerfile
-│   └── package-lock.json
-├── scripts/
-│   └── create-admin.js         # Tạo tài khoản quản trị
-├── src/
-│   ├── config/                 # Cấu hình kết nối database
-│   ├── routes/                 # Định nghĩa endpoint
-│   ├── middlewares/            # Kiểm tra xác thực
-│   ├── services/               # Quy tắc nghiệp vụ
-│   ├── repositories/           # Truy vấn PostgreSQL
-│   ├── app.js                  # Cấu hình Express
-│   └── server.js               # Khởi động Backend
-├── tests/                      # Unit Test
-├── .env.example                # Mẫu biến môi trường
-├── .gitignore
-├── compose.yaml                # Docker Compose chính
-├── compose.clean-test.yaml     # Override cổng cho môi trường kiểm thử
-├── dockerfile                  # Dockerfile Backend
-├── package.json
-├── package-lock.json
-└── README.md
-```
-
-**Lưu ý:** File sơ đồ `docs/architecture-thuc-te.drawio` cần được lưu và commit từ draw.io trước khi chốt bản nộp.
-
-## 5. Kiểm thử và kết quả thực tế
-
-Dự án sử dụng **Node.js Test Runner** để kiểm thử logic của `ticket` và `survey_response`, gồm các trường hợp hợp lệ, biên và không hợp lệ:
-
-- Kiểm tra CSAT trong khoảng 1–5 và NPS trong khoảng 0–10.
-- Từ chối điểm ngoài phạm vi hoặc dữ liệu không hợp lệ.
-- Từ chối khảo sát khi phiếu chưa `CLOSED`.
-- Xử lý bản ghi không tồn tại.
-- Kiểm tra CRUD phiếu bảo hành.
-- Không cho xóa phiếu đã có khảo sát.
-
-**Kết quả đã xác nhận:** 18 bài kiểm thử PASS, 0 FAIL.
-
-### 5.1. Kiểm thử End-to-End trên Docker độc lập
-
-Môi trường kiểm thử được tạo bằng Docker Compose project riêng (`smartcrm_bt2_clean`) với cổng Frontend `5174`, Backend `3001`, không dùng chung volume database với môi trường chính.
-
-Kết quả đã quan sát:
-
-- PostgreSQL khởi tạo **7 bảng**; seed có **1 bản ghi ở mỗi bảng** `customer`, `service_center`, `technician`, `ticket`, `survey_response`.
-- API `/health` kết nối database thành công; đăng nhập Admin thành công.
-- Tạo `ticket_id = 2` ở trạng thái `OPEN`, sau đó cập nhật sang `CLOSED` với `closed_at` hợp lệ.
-- API danh sách phiếu đủ điều kiện trả về phiếu `#2` trước khảo sát.
-- Gửi khảo sát thành công: CSAT **5/5**, NPS **9/10**, nhận xét được lưu và hiển thị trong màn hình chi tiết phản hồi `#2`.
-- Sau khi khảo sát, phiếu `#2` không còn trong danh sách đủ điều kiện.
-- Gửi lại khảo sát cho phiếu `#2` nhận **HTTP 409** với thông báo `Ticket nay da co phan hoi khao sat`.
-
-Các ảnh chụp màn hình được lưu trong `docs/` để làm minh chứng cho báo cáo BT2. Trạng thái Loading/Error/Retry cần được chụp và xác nhận riêng trước khi đánh dấu hoàn tất minh chứng giao diện.
-
-### 5.2. Kiểm tra phụ thuộc
-
-Backend đã được kiểm tra bằng `npm audit --omit=dev`; lần kiểm tra gần nhất ghi nhận **0 vulnerabilities**. Hai Dockerfile sử dụng `npm ci` với lockfile để tăng khả năng tái lập.
-
-## 6. Tiến độ và các việc còn lại
-
-### Đã thực hiện
-
-- CRUD hai thực thể `ticket` và `survey_response` với ba lớp Routes – Services – Repositories.
-- Áp dụng quy tắc phiếu `CLOSED`, khảo sát một lần và kiểm tra điểm CSAT/NPS.
-- Xác thực Admin bằng Bearer Token, tạo tài khoản qua script.
-- Frontend React với các màn hình đăng nhập, danh sách, chi tiết và tiếp nhận khảo sát; có component `DataState` cho Loading/Empty/Error/Retry.
-- Docker Compose cho Frontend, Backend, PostgreSQL; migration và seed khi khởi tạo volume mới.
-- 18/18 Unit Test PASS; kiểm thử End-to-End và HTTP 409 trên môi trường Docker độc lập.
-- Vẽ sơ đồ kiến trúc thực tế, mô tả rõ đường dẫn các lớp.
-
-### Cần hoàn tất trước khi nộp
-
-- Lưu/commit file gốc `docs/architecture-thuc-te.drawio` và các ảnh minh chứng cần thiết.
-- Chụp, kiểm tra minh chứng Loading, Empty và Error/Retry.
-- Kiểm tra **clean clone trực tiếp từ GitHub** sau khi commit/push.
-- Rà soát `docs/thay-doi-thiet-ke.md`, `docs/ai-disclosure.md` và báo cáo BT2 PDF.
-- Đảm bảo repository ở chế độ **PUBLIC**, working tree sạch, sau đó tạo và push tag `v0.2` vào commit mới nhất.
-
-## 7. Tài liệu tham chiếu
-
-- `docs/srs.md` – Đặc tả yêu cầu phần mềm từ BT1.
-- `docs/architecture-thuc-te.drawio` – Kiến trúc đã hiện thực ở BT2.
-- `docs/thay-doi-thiet-ke.md` – Nhật ký thay đổi thiết kế.
-- `docs/ai-disclosure.md` – Khai báo sử dụng AI.
-- `docs/api-contract.md` – Hợp đồng API.
-- `docs/bt2-test-results.txt` – Kết quả Unit Test.
-
+7. Trạng thái hoàn thiện và lưu ý nộp bài
+- Bộ Unit Test đã được kiểm tra trong môi trường chuẩn bị tài liệu với kết quả 25/25 PASS; vẫn cần chạy lại trên Docker của máy nộp bài.
+- Các ảnh TC01–TC10 đã có từ đợt kiểm thử trước; cần đối chiếu nội dung ảnh với kết quả trong docs/test-report.md sau khi cập nhật mã nguồn.
+- Kiểm thử API hai tài khoản của TC11 (OWASP A01) và việc dựng lại Docker từ bản clone sạch cần được xác nhận bằng ảnh thật trước khi đánh dấu PASS.
+- Chỉ tạo tag v1.0 và xuất bản báo cáo PDF cuối cùng sau khi đã kiểm tra toàn bộ các minh chứng, đường dẫn GitHub và quy trình chạy từ bản clone sạch.
+Lưu ý: Kết quả Unit Test PASS không đồng nghĩa mọi tình huống kiểm thử API, giao diện và Docker đều đã PASS. Không tự ghi kết quả cho các trường hợp chưa chạy.

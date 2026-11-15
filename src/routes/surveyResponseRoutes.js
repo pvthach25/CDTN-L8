@@ -36,7 +36,7 @@ function handleError(error, res) {
 
 router.get("/", async (req, res) => {
   try {
-    res.json(await service.getAll());
+    res.json(await service.getAll(req.user.user_id));
   } catch (error) {
     handleError(error, res);
   }
@@ -44,7 +44,7 @@ router.get("/", async (req, res) => {
 
 router.get("/:id", validateId, async (req, res) => {
   try {
-    res.json(await service.getById(req.responseId));
+    res.json(await service.getById(req.responseId, req.user.user_id));
   } catch (error) {
     handleError(error, res);
   }
@@ -52,7 +52,7 @@ router.get("/:id", validateId, async (req, res) => {
 
 router.post("/", async (req, res) => {
   try {
-    const result = await service.create(req.body);
+    const result = await service.create(req.body, req.user.user_id);
     res.status(201).json(result);
   } catch (error) {
     handleError(error, res);
@@ -61,7 +61,7 @@ router.post("/", async (req, res) => {
 
 router.put("/:id", validateId, async (req, res) => {
   try {
-    res.json(await service.update(req.responseId, req.body));
+    res.json(await service.update(req.responseId, req.body, req.user.user_id));
   } catch (error) {
     handleError(error, res);
   }
@@ -69,7 +69,7 @@ router.put("/:id", validateId, async (req, res) => {
 
 router.delete("/:id", validateId, async (req, res) => {
   try {
-    res.json(await service.remove(req.responseId));
+    res.json(await service.remove(req.responseId, req.user.user_id));
   } catch (error) {
     handleError(error, res);
   }

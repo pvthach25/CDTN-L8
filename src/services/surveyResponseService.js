@@ -23,17 +23,17 @@ function validateScores(data) {
   }
 }
 
-async function getAll() {
-  return repository.findAll();
+async function getAll(ownerUserId) {
+  return repository.findAll(ownerUserId);
 }
 
-async function getById(id) {
-  const response = await repository.findById(id);
+async function getById(id, ownerUserId) {
+  const response = await repository.findById(id, ownerUserId);
   if (!response) throw httpError(404, "Khong tim thay phan hoi");
   return response;
 }
 
-async function create(data) {
+async function create(data, ownerUserId) {
   validateScores(data);
 
   if (!Number.isInteger(data.ticket_id) || data.ticket_id <= 0) {
@@ -50,18 +50,18 @@ async function create(data) {
     throw httpError(400, "Chi duoc khao sat ticket da CLOSED");
   }
 
-  return repository.create(data);
+  return repository.create(data, ownerUserId);
 }
 
-async function update(id, data) {
-  await getById(id);
+async function update(id, data, ownerUserId) {
+  await getById(id, ownerUserId);
   validateScores(data);
-  return repository.update(id, data);
+  return repository.update(id, data, ownerUserId);
 }
 
-async function remove(id) {
-  await getById(id);
-  return repository.remove(id);
+async function remove(id, ownerUserId) {
+  await getById(id, ownerUserId);
+  return repository.remove(id, ownerUserId);
 }
 
 module.exports = { getAll, getById, create, update, remove };

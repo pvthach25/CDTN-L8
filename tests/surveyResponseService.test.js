@@ -17,3 +17,22 @@ test('Reject non-closed ticket',async()=>{mock({findTicket:async()=>({status:'OP
 test('Reject unknown ticket',async()=>{mock({findTicket:async()=>null});await assert.rejects(service.create({ticket_id:99,csat_score:4,nps_score:8}),{status:404});});
 test('Reject missing survey',async()=>{mock({findById:async()=>null});await assert.rejects(service.getById(999),{status:404});});
 test('Reject non-string comment',async()=>{await assert.rejects(service.create({ticket_id:1,csat_score:4,nps_score:8,comment:123}),{status:400});});
+
+test('A01: owner can read own survey',async()=>{
+  mock({findById:async(id,owner)=>owner===1?{response_id:id,owner_user_id:1}:null});
+  const result=await service.getById(1,1);
+  assert.equal(result.response_id,1);
+});
+test('A01: other user cannot read survey',async()=>{
+  mock({findById:async(id,owner)=>owner===1?{response_id:id,owner_user_id:1}:null});
+  await assert.rejects(service.getById(1,2),{status:404});
+});
+test('A01: survey listing is scoped to current user',async()=>{
+  mock({findAll:async(owner)=>owner===1?[{response_id:1}]:[]});
+  assert.deepEqual(await service.getAll(2),[]);
+});
+test('A01: survey creation passes authenticated owner ID',async()=>{
+  mock({findTicket:async()=>({status:'CLOSED'}),create:async(data,owner)=>({...data,owner_user_id:owner})});
+  const result=await service.create({ticket_id:2,csat_score:4,nps_score:8},2);
+  assert.equal(result.owner_user_id,2);
+});
