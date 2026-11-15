@@ -21,3 +21,18 @@
 **Bug history.** BUG-01: surveyed ticket reopened (200 before / 409 after), commit `3ad71ec`; BUG-02: invalid calendar date accepted (test failed before / passed after), commit `1acdf8f`; BUG-03: invalid timezone offset accepted (test failed before / passed after), commit `a9a0958`. Before/after screenshots are under `docs/screenshots/BUG-xx-*.png`.
 
 **Evidence policy.** PASS only after the real result matches the expected HTTP status/body or UI state, and the screenshot/log has been saved. Record run date and environment in the screenshot or log. Keep the original failed runs as bug evidence.
+
+## Kiểm thử tái lập từ bản clone GitHub
+
+- Ngày kiểm thử: 15/11/2026
+- Môi trường: Windows, Docker Desktop, Docker Compose
+- Nguồn mã: Clone từ repository GitHub vào thư mục CDTN-L8-BT3-verify
+- Docker project: smartcrm_bt3_verify
+- API Health: PASS (status: ok, database: connected)
+- Unit Test: 25/25 PASS
+- FAIL: 0
+- Kết luận: Bản clone chạy thành công và vượt qua toàn bộ Unit Test.
+
+### Minh chứng
+- docs/screenshots/BT3-clone-test.png
+- docs/screenshots/BT3-clone-docker.png
